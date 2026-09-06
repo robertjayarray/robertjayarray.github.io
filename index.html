@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Apps made by Robert Jay Array">
+    <meta name="keywords" content="apps, free, text editor">
+    <meta name="author" content="Robert Jay Array">
+    <link rel="stylesheet" type="text/css" href="./main.css">
+    <link rel="apple-touch-icon" sizes="60x60" href="./img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./img/favicon-16x16.png">
+    <link rel="manifest" href="./img/site.webmanifest">
+    <link rel="mask-icon" href="./img/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="./img/favicon.ico">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="./img/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <title>Robert Jay Array</title>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div id="banner">
+          <img src="./img/banner-named.png" alt="Robert Jay Array">
+        </div>
+      </div>
+    </header>
+    <div class="container">
+      <section id="page-intro">
+        <h1>Project Highlights</h1>
+        <p>Over the years, I've worked on numerous personal projects, ranging from exercises toward learning a code library to passion projects with many hours put into design and iteration to make something meaningful that people can enjoy.</p>
+        <p>The choice of tech used is sometimes a matter of selectively extending my capability, such as when I wrote a variety of programs in Qt and C++ in order to learn the library and language better, and sometimes a matter of adapting to constraints, such as when I worked with XML when making mods for The Sims 4 or worked with TypeScript when making scripts with NovelAI's Scripting API.</p>
+        <p>Constraints are a reality of development and learning is always going to be ongoing. Here you'll find some of my favorite projects in focus.</p>
+      </section>
+    </div>
+    <div class="container">
+      <section id="boxes">
+        <div class="preview-box">
+          <h1>Another Room</h1>
+          <img src="./img/another-room.png" alt="Another Room" class="preview-image" />
+          <div class="text-row">
+            <span class="text-item"><svg width="24" height="24"><use href="#icon-tech"/></svg> TypeScript, NovelAI Scripting API</span>
+            <span class="text-item"><svg width="24" height="24"><use href="#icon-platform"/></svg> Web, NovelAI</span>
+          </div>
+          <div class="text-item"><svg width="24" height="24"><use href="#icon-desc"/></svg> Chatbot interface for use within NovelAI, with context management, AI diaries, emotional weight, minigames, and more</div>
+          <div class="text-item"><svg width="24" height="24"><use href="#icon-challenges"/></svg> Challenges: chatbot capability, AI management, complex UI, API constraints </div>
+          <button type="button" class="collapsible"><svg width="24" height="24"><use href="#icon-project-reflections"/></svg> Project Reflections</button>
+          <div class="collapsible-content">
+            <p>This project started out as a basic integration of some existing context scaffolding for utilizing the NovelAI model Xialong's chat and roleplay abilities most effectively. From there, it became a challenge to see how much more I could make the AI feel like a customizable and lifelike companion, while keeping pro-social priorities in view.</p>
+            <p>Many times I found myself reflecting on what would meaningfully help the user, as opposed to only entertaining them, or trying to get them addicted which I wanted to avoid. The field of chatbots is still underdeveloped in my view, as of writing this, and I believe it is worth considering it with careful design from the standpoint of social good.</p>
+            <p>Making changes to it as time went on gave me experience in being careful when introducing new data or changing existing data. Unlike a work in progress or more private project, I had to think about how changes would impact already existing stored data for users with a previous version of the script.</p>
+          </div>
+          <button type="button" class="collapsible"><svg width="24" height="24"><use href="#icon-code-spotlight"/></svg> Code Spotlight</button>
+          <div class="collapsible-content">
+            <pre><code>
+// Includes special handling of an earlier version of gameRecord data. Originally had one minigame, Rock Paper Scissors, with competitive game data storage. Then introduced a cooperative minigame, Number Guess, so needed to handle legacy.
+const combinedId = chatSettings.char!.id + chatSettings.user!.id;
+if (gameRecord[gameType]){
+  if (gameRecord[gameType][combinedId].kind == "competitive"){
+    const gInstance = gameRecord[gameType][combinedId] as CompetitiveStats;
+    const statsStr = `${gInstance.displayLabel}:\n${chatSettings.char!.name}: ${gInstance.charWins} wins, ${gInstance.charLosses} losses\n${chatSettings.user!.name}: ${gInstance.userWins} wins, ${gInstance.userLosses} losses\nShared: ${gInstance.ties} ties`;
+    gameBrain.content += statsStr;
+  }
+  else if (gameRecord[gameType][combinedId].kind == "cooperative"){
+    const gInstance = gameRecord[gameType][combinedId] as CoopStats;
+    const winsAsNumList = gInstance.sharedWins.join(", ");
+    const statsStr = `${gInstance.displayLabel}:\nShared wins: ${gInstance.sharedWins.length.toString()}\nTurns taken to complete: ${winsAsNumList}`;
+    gameBrain.content += statsStr;
+  }
+  else{
+    // For legacy (existing RPS stats before "kind") we default to competitive.
+    // We can rely on this since we know RPS was the only game existing prior to kind and comp/coop split. 
+    const gInstance = gameRecord[gameType][combinedId] as CompetitiveStats;
+    const statsStr = `${gInstance.displayLabel}:\n${chatSettings.char!.name}: ${gInstance.charWins} wins, ${gInstance.charLosses} losses\n${chatSettings.user!.name}: ${gInstance.userWins} wins, ${gInstance.userLosses} losses\nShared: ${gInstance.ties} ties`;
+    gameBrain.content += statsStr;
+  }
+}
+            </code></pre>
+          </div>
+          <button type="button" class="full-source-btn"><svg width="24" height="24"><use href="#icon-external-link"/></svg><a href="https://github.com/robertjayarray/anotherroom" target="_blank"> Full Source</a></button>
+        </div>
+        <div class="preview-box">
+          <h1>Zen Character Creator 2D</h1>
+          <img src="./img/character-creator-2d-display-img-species-menu.png" alt="Zen Character Creator 2D" class="preview-image" />
+          <div class="text-row">
+            <span class="text-item"><svg width="24" height="24"><use href="#icon-tech"/></svg> C++, Qt</span>
+            <span class="text-item"><svg width="24" height="24"><use href="#icon-platform"/></svg> Windows</span>
+          </div>
+          <div class="text-item"><svg width="24" height="24"><use href="#icon-desc"/></svg> Prototype 2D character creation tool with flexible integration of assets</div>
+          <div class="text-item"><svg width="24" height="24"><use href="#icon-challenges"/></svg> Challenges: complex UI parts, original UI design, optimization of loading, animation frames </div>
+          <button type="button" class="collapsible"><svg width="24" height="24"><use href="#icon-project-reflections"/></svg> Project Reflections</button>
+          <div class="collapsible-content">
+            <p>Character creation systems in game have long been a passion of mine, so this project was as much an effort toward that desire as it was a test of how far I could go with Qt and C++.</p>
+            <p>The design of the UI was one of the most challenging parts and I went through multiple versions until I landed on the one shown above. I wanted to ensure the UI did not take up too much screen space compared to the character, while also being simple and straightforward to engage with.</p>
+            <p>The prototype nature of it and its easy engagement with new assets comes in part from my love for game modding and wanting to support the ease of it.</p>
+          </div>
+          <button type="button" class="collapsible"><svg width="24" height="24"><use href="#icon-code-spotlight"/></svg> Code Spotlight</button>
+          <div class="collapsible-content">
+            <pre><code>
+// Manages state of animation based on frames provided from assets.
+auto updateAnimationFrames = [&](const PaintType &paintType) {
+  if (asset.animation.get()->state() == QAbstractAnimation::State::Running)
+    asset.animation.get()->pause();
+  qreal increment = 1 / (qreal)(asset.animationFrameList.size() - 1);
+  qreal step = 0;
+  for (int frameNum = 0; frameNum < asset.animationFrameList.size(); frameNum++)
+  {
+    QPixmap temp = recolorPixmapSolidWithOutline(asset, frameNum, paintType);
+    asset.animation.get()->setKeyValueAt
+    (
+      step,
+      temp
+    );
+
+    if (step == 0)
+      setNewPixmapAndPos(temp);
+
+    if (step + increment > 1)
+      step = 1;
+    else
+      step += increment;
+  }
+
+  asset.animation.get()->setEndValue(recolorPixmapSolidWithOutline(asset, asset.animationFrameList.size() - 1, paintType));
+
+  if (asset.animation.get()->state() == QAbstractAnimation::State::Paused)
+    asset.animation.get()->resume();
+  else if (asset.animation.get()->state() == QAbstractAnimation::State::Stopped)
+    asset.animation.get()->start();
+
+  if (asset.animationPropertiesList[0].repeating)
+  {
+    componentUi.animationRepeatingTimer->setInterval
+    (
+      getRandomIntInRange
+      (
+        asset.animationPropertiesList[0].repeatingTimeRange.first,
+        asset.animationPropertiesList[0].repeatingTimeRange.second
+      )
+    );
+
+    componentUi.animationRepeatingTimer.get()->start();
+  }
+
+  //qDebug() << asset.animation.get()->keyValues();
+  //qDebug() << asset.animation.get()->endValue();
+};
+
+componentUi.animationRepeatingTimer->stop();
+            </code></pre>
+          </div>
+          <button type="button" class="full-source-btn"><svg width="24" height="24"><use href="#icon-external-link"/></svg><a href="https://github.com/robertjayarray/Zen-Character-Creator-2D" target="_blank"> Full Source</a></button>
+        </div>
+        <div class="preview-box">
+          <h1>Become a Sorcerer</h1>
+          <img src="./img/become-a-sorcerer.png" alt="Sims 4 Sorcerer Mod" class="preview-image" />
+          <div class="text-row">
+            <span class="text-item"><svg width="24" height="24"><use href="#icon-tech"/></svg> XML, Python</span>
+            <span class="text-item"><svg width="24" height="24"><use href="#icon-platform"/></svg> PC, Sims 4</span>
+          </div>
+          <div class="text-item"><svg width="24" height="24"><use href="#icon-desc"/></svg> In-depth Sorcerer themed mod for the video game Sims 4</div>
+          <div class="text-item"><svg width="24" height="24"><use href="#icon-challenges"/></svg> Challenges: game design, game mechanics, modding constraints, thematic matching </div>
+          <button type="button" class="collapsible"><svg width="24" height="24"><use href="#icon-project-reflections"/></svg> Project Reflections</button>
+          <div class="collapsible-content">
+            <p>This was a major project toward testing my education in game design. It started out as a few sim interactions added to the Sims 4 and ballooned in popularity to a degree that I never expected.</p>
+            <p>As time went on, I added to it extensively, creating an RPG-like system for variations of Dark and Light sides of spellcasting, as well as an aside in Mischief Arts and Reality Arts for extra flavor. When the official Spellcaster life state came out, I made sure that being a Sorcerer was compatible with it, so that players could enjoy the two alongside each other.</p>
+            <p>Though I'm no longer maintaining it alongside official game updates, it holds a special place for me. It challenged me to think hard about game design and within some heavy constraints too.</p>
+          </div>
+          <button type="button" class="collapsible"><svg width="24" height="24"><use href="#icon-code-spotlight"/></svg> Code Spotlight</button>
+          <div class="collapsible-content">
+            <pre><code>
+// A kind of python-based injector specific to the Sims 4 for adding to Tag enums. This enabled me to do a custom "spell" via a temporary buff that would change a Sim's hair via Create-A-Sim part.
+from tag import TagCategory, Tag
+
+def add_tag_elements(kvp):
+    with Tag.make_mutable():
+        for k,v in kvp.items():
+            if not hasattr(Tag, k):
+                Tag._add_new_enum_value(k, v)
+
+
+TAG_ELEMENTS = {
+    'Triplis_Sorcerer_ApplyRandomHairstyle_AppearanceModifier': 3153112947
+    }
+add_tag_elements(TAG_ELEMENTS)
+            </code></pre>
+          </div>
+          <button type="button" class="full-source-btn"><svg width="24" height="24"><use href="#icon-external-link"/></svg><a href="https://triplis.github.io/mods/sorcerer.html" target="_blank"> Full Source</a></button>
+        </div>
+      </section>
+    </div>
+    <div class="container">
+      <section id="page-intro">
+        <h1>About Me</h1>
+        <p>I have a degree in video game design and extensive experience working on unguided solo projects in computer programming, game design, and fiction writing. Though my experience is primarily solo, coming from projects based on my own goals, I am happy to collaborate with others and utilize my skills in a team, toward shared goals.</p>
+        <p>When I'm not summarizing my whole self in a couple of paragraphs or zeroing in on a particular project, I enjoy reading books, working on learning Mandarin, or plinking on the piano.</p>
+        <p>I can be reached at: <a href="mailto:robertjayarray@gmail.com">robertjayarray@gmail.com</a></p>
+      </section>
+    </div>
+    <div class="container">
+      <footer>
+        <p>Robert Jay Array, Copyright &copy; 2019-<script language="JavaScript" type="text/javascript">document.write((new Date()).getFullYear());</script></p>
+      </footer>
+    </div>
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+      <symbol id="icon-tech" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/>
+      </symbol>
+      <symbol id="icon-platform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 5a2 2 0 0 1 2 2v8.526a2 2 0 0 0 .212.897l1.068 2.127a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45l1.068-2.127A2 2 0 0 0 4 15.526V7a2 2 0 0 1 2-2z"/><path d="M20.054 15.987H3.946"/>
+      </symbol>
+      <symbol id="icon-desc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2v4"/><path d="M16 2v4"/><rect width="16" height="18" x="4" y="4" rx="2"/><path d="M8 10h6"/><path d="M8 14h8"/><path d="M8 18h5"/>
+      </symbol>
+      <symbol id="icon-challenges" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z"/>
+      </symbol>
+      <symbol id="icon-code-spotlight" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/>
+      </symbol>
+      <symbol id="icon-external-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-external-link">
+        <path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+      </symbol>
+      <symbol id="icon-project-reflections" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20"/>
+      </symbol>
+      <symbol id="icon-mail-to" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/>
+      </symbol>
+    </svg>
+    <script src="./collapsible.js"></script>
+  </body>
+</html>
